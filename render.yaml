@@ -1,0 +1,6 @@
+services:
+  - type: web
+    runtime: static
+    name: giai-ma-chung-minh-toan7
+    buildCommand: pnpm install --frozen-lockfile && pnpm run build
+    staticPublishPath: ./dist
