@@ -114,7 +114,11 @@ const server = createServer(async (request, response) => {
       );
       return send(response, 201, { ok: true, id: result.rows[0].id, submittedAt: result.rows[0].submitted_at });
     } catch (error) {
-      return send(response, error instanceof SyntaxError ? 400 : 500, { error: error.message || 'Không lưu được bài làm.' });
+      if (error instanceof SyntaxError || error.message === 'Payload quá lớn.') {
+        return send(response, error instanceof SyntaxError ? 400 : 413, { error: error.message });
+      }
+      console.error('Could not save student submission:', error);
+      return send(response, 500, { error: 'Máy chủ chưa lưu được bài. Hãy thử gửi lại.' });
     }
   }
 
