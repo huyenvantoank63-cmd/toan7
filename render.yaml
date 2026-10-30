@@ -4,3 +4,33 @@ services:
     name: giai-ma-chung-minh-toan7
     buildCommand: pnpm install --frozen-lockfile && pnpm run build
     staticPublishPath: ./dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://giai-ma-chung-minh-toan7-api.onrender.com
+    routes:
+      - type: rewrite
+        source: /results
+        destination: /results.html
+
+  - type: web
+    runtime: node
+    name: giai-ma-chung-minh-toan7-api
+    plan: free
+    buildCommand: pnpm install --frozen-lockfile
+    startCommand: pnpm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: giai-ma-chung-minh-toan7-db
+          property: connectionString
+      - key: APP_ORIGIN
+        value: https://giai-ma-chung-minh-toan7.onrender.com
+      - key: TEACHER_PASSWORD
+        sync: false
+
+databases:
+  - name: giai-ma-chung-minh-toan7-db
+    databaseName: toan7
+    user: toan7
+    plan: free

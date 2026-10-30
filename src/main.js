@@ -21,6 +21,8 @@ const placements = Array(5).fill(null);
 let selectedAnswer = null;
 let submitted = false;
 let studentName = '';
+let studentClass = '';
+let submissionSent = false;
 let discardedAnswer = null;
 
 const triangleScene = `
@@ -115,8 +117,9 @@ document.querySelector('#root').innerHTML = `
     <form class="start-card" id="start-form">
       <div class="start-mark" aria-hidden="true">✦</div><p class="start-eyebrow">SẴN SÀNG CHƯA?</p><h2 id="start-title">Bắt đầu làm bài</h2><p class="start-copy">Nhập tên để lưu tên trên màn hình kết quả.</p>
       <label class="name-label" for="student-name">Họ và tên</label><input id="student-name" name="studentName" maxlength="60" autocomplete="name" placeholder="Ví dụ: Nguyễn Minh Anh" required />
+      <label class="name-label" for="student-class">Lớp</label><input id="student-class" name="studentClass" maxlength="40" placeholder="Ví dụ: 7A" />
       <button class="start-button" id="start-button" type="submit" disabled>Bắt đầu làm bài <span aria-hidden="true">→</span></button>
-      <p class="privacy-note">Tên chỉ hiển thị trong phiên học này.</p>
+      <p class="privacy-note">Tên, lớp, câu trả lời và điểm sẽ được gửi cho giáo viên.</p>
     </form>
   </div>
   <audio id="worksheet-music" src="/olympia-countdown.mp3" preload="auto" loop></audio>
@@ -192,6 +195,7 @@ function startTimer() {
       resultMessage.textContent = getScoreSummary('Hết giờ! ');
       resultMessage.className = 'result-message is-hint';
       music.pause();
+      saveSubmission();
     }
   }, 1000);
 }
@@ -327,6 +331,47 @@ discardZone.addEventListener('drop', (event) => {
   discardAnswer(event.dataTransfer.getData('text/plain'));
 });
 
+async function saveSubmission() {
+  if (submissionSent) return;
+  submissionSent = true;
+  const message = document.querySelector('#result-message');
+  document.querySelector('#retry-submit')?.remove();
+  const correctCount = placements.reduce((sum, answer, index) => sum + Number(answer === correct[index]), 0);
+  const apiBase = import.meta.env.VITE_API_URL || '';
+  message.textContent = `${getScoreSummary()} Đang gửi bài cho giáo viên…`;
+  message.className = 'result-message is-hint';
+  try {
+    const response = await fetch(`${apiBase}/api/submissions`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: studentName,
+        studentClass,
+        score: correctCount * 2,
+        correctCount,
+        answers: placements,
+        discardedAnswer,
+        elapsedSeconds: 180 - secondsRemaining,
+      }),
+    });
+    const payload = await response.json();
+    if (!response.ok) throw new Error(payload.error || 'Không gửi được bài.');
+    message.textContent = `${studentName} · ${getScoreSummary()} Đã gửi bài cho giáo viên.`;
+    message.className = `result-message ${correctCount === placements.length && discardedAnswer === 'distractor' ? 'is-success' : 'is-hint'}`;
+  } catch {
+    submissionSent = false;
+    message.textContent = `${studentName} · ${getScoreSummary()} Chưa gửi được bài. Hãy kiểm tra kết nối rồi nhấn “Gửi lại cho giáo viên”.`;
+    message.className = 'result-message is-hint';
+    const retry = document.createElement('button');
+    retry.type = 'button';
+    retry.className = 'submit-button';
+    retry.id = 'retry-submit';
+    retry.textContent = 'Gửi lại cho giáo viên';
+    retry.addEventListener('click', saveSubmission, { once: true });
+    message.after(retry);
+  }
+}
+
 document.querySelector('#submit-button').addEventListener('click', () => {
   const message = document.querySelector('#result-message');
   submitted = true;
@@ -341,12 +386,14 @@ document.querySelector('#submit-button').addEventListener('click', () => {
   message.textContent = `${studentName ? `${studentName} · ` : ''}${getScoreSummary()} ${discardResult}`;
   message.className = `result-message ${score === placements.length && discardedAnswer === 'distractor' ? 'is-success' : 'is-hint'}`;
   music.pause();
+  saveSubmission();
 });
 
 document.querySelector('#reset-button').addEventListener('click', () => {
   placements.fill(null);
   selectedAnswer = null;
   submitted = false;
+  submissionSent = false;
   discardedAnswer = null;
   if (exerciseStarted) {
     startTimer();
@@ -368,6 +415,7 @@ nameInput.addEventListener('input', () => {
 document.querySelector('#start-form').addEventListener('submit', (event) => {
   event.preventDefault();
   studentName = nameInput.value.trim();
+  studentClass = document.querySelector('#student-class').value.trim();
   if (!studentName) return;
   document.querySelector('#student-banner').textContent = studentName;
   document.querySelector('#start-overlay').classList.add('is-hidden');
