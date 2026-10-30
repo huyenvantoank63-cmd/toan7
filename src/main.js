@@ -94,7 +94,7 @@ document.querySelector('#root').innerHTML = `
 
       <section class="sheet-bottom-grid" aria-label="Thẻ đáp án, sơ đồ lời giải và khu vực loại bỏ">
         <section class="worksheet-block choices-block">
-          <header class="block-heading heading-yellow"><span>3</span><div>6 THẺ MỆNH ĐỀ<small>Chạm thẻ rồi chạm ô, hoặc kéo thả</small></div></header>
+          <header class="block-heading heading-yellow"><span>3</span><div>6 THẺ MỆNH ĐỀ<small>Chạm thẻ rồi chạm ô, hoặc kéo thả · <span id="answer-count">6 thẻ còn lại</span></small></div></header>
           <div class="answer-bank" id="answer-bank" tabindex="-1"></div>
         </section>
         <section class="worksheet-block proof-block">
@@ -229,7 +229,8 @@ function render() {
   const filled = placements.filter(Boolean).length;
   document.querySelector('#progress-count').textContent = `${filled} / ${placements.length}`;
   document.querySelector('#progress-bar').style.width = `${filled * 100 / placements.length}%`;
-  document.querySelector('#answer-count').textContent = `${answers.length - used.size} thẻ còn lại`;
+  const answerCount = document.querySelector('#answer-count');
+  if (answerCount) answerCount.textContent = `${answers.length - used.size} thẻ còn lại`;
   document.querySelector('#submit-button').disabled = submitted;
   document.querySelector('#reset-button').disabled = false;
 }
