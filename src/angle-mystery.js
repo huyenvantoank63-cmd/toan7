@@ -1,9 +1,9 @@
 import './style.css';
 
 const challenges = [
-  { id: 'A', triangle: 'ABC', given: [['Góc B', '50°'], ['Góc C', '60°']], answer: 70, kind: 'acute', kindLabel: 'Tam giác nhọn', palette: 'leaf', points: '345,177 120,445 500,445', labels: { A: [345, 150], B: [101, 480], C: [519, 480] }, angleMarks: { A: '', B: '50°', C: '60°' } },
-  { id: 'D', triangle: 'FDE', given: [['Góc F', '50°'], ['Góc E', '30°']], answer: 100, kind: 'obtuse', kindLabel: 'Tam giác tù', palette: 'sun', points: '94,220 135,455 500,455', labels: { F: [75, 194], D: [111, 493], E: [522, 493] }, angleMarks: { F: '50°', D: '', E: '30°' } },
-  { id: 'P', triangle: 'MNP', given: [['Góc M', '90° (góc vuông)'], ['Góc N', '60°']], answer: 30, kind: 'right', kindLabel: 'Tam giác vuông', palette: 'violet', points: '219,293 125,455 500,455', labels: { M: [219, 264], N: [95, 493], P: [530, 493] }, angleMarks: { M: '90°', N: '60°', P: '' } },
+  { id: 'A', triangle: 'ABC', given: [['Góc B', '50°'], ['Góc C', '60°']], answer: 70, kind: 'acute', kindLabel: 'Tam giác nhọn', palette: 'leaf', points: '344.9,177 120,445 499.6,445', labels: { A: [344.9, 150], B: [101, 480], C: [519, 480] }, angleMarks: { A: '', B: '50°', C: '60°' } },
+  { id: 'D', triangle: 'FDE', given: [['Góc F', '50°'], ['Góc E', '30°']], answer: 100, kind: 'obtuse', kindLabel: 'Tam giác tù', palette: 'sun', points: '93,220 134.5,455 500,455', labels: { F: [74, 194], D: [110, 493], E: [522, 493] }, angleMarks: { F: '50°', D: '', E: '30°' } },
+  { id: 'P', triangle: 'MNP', given: [['Góc M', '90° (góc vuông)'], ['Góc N', '60°']], answer: 30, kind: 'right', kindLabel: 'Tam giác vuông', palette: 'violet', points: '218.5,293 125,455 499.1,455', labels: { M: [218.5, 264], N: [95, 493], P: [529, 493] }, angleMarks: { M: '90°', N: '60°', P: '' } },
 ];
 
 const root = document.querySelector('#angle-root');
@@ -58,12 +58,13 @@ function triangleSvg(item) {
     const bisector = start + sweep / 2;
     const value = item.angleMarks[letter];
     const rightAngle = value === '90°';
+    const colorClass = `angle-mark-${index + 1}`;
     const mark = rightAngle
-      ? (() => { const u = [Math.cos(start), Math.sin(start)]; const v = [Math.cos(end), Math.sin(end)]; const size = 24; const q1 = [center[0] + size * u[0], center[1] + size * u[1]]; const q2 = [q1[0] + size * v[0], q1[1] + size * v[1]]; const q3 = [center[0] + size * v[0], center[1] + size * v[1]]; return `<path class="right-angle-mark" d="M${q1[0]},${q1[1]}L${q2[0]},${q2[1]}L${q3[0]},${q3[1]}"/>`; })()
-      : `<path class="angle-sector ${value ? '' : 'unknown'}" d="M${center[0]},${center[1]}L${p1[0]},${p1[1]}A${radius},${radius} 0 0 1 ${p2[0]},${p2[1]}Z"/>`;
+      ? (() => { const u = [Math.cos(start), Math.sin(start)]; const v = [Math.cos(end), Math.sin(end)]; const size = 27; const q1 = [center[0] + size * u[0], center[1] + size * u[1]]; const q2 = [q1[0] + size * v[0], q1[1] + size * v[1]]; const q3 = [center[0] + size * v[0], center[1] + size * v[1]]; return `<path class="right-angle-mark ${colorClass}" d="M${q1[0]},${q1[1]}L${q2[0]},${q2[1]}L${q3[0]},${q3[1]}"/>`; })()
+      : `<path class="angle-sector ${colorClass}" d="M${p1[0]},${p1[1]}A${radius},${radius} 0 0 1 ${p2[0]},${p2[1]}"/>`;
     return mark;
   }).join('');
-  return `<defs><linearGradient id="water-${item.id}" x2="0" y2="1"><stop stop-color="#c4f1ff"/><stop offset="1" stop-color="#86d9f7"/></linearGradient></defs><rect x="8" y="8" width="604" height="504" rx="26" fill="#f7fdff"/><path d="M${item.points.replaceAll(' ', 'L')}Z" fill="url(#water-${item.id})" stroke="#173b86" stroke-width="8" stroke-linejoin="round"/><path d="M${item.points.replaceAll(' ', 'L')}Z" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>${sectors}`;
+  return `<defs><linearGradient id="water-${item.id}" x2="0" y2="1"><stop stop-color="#d7f5ff"/><stop offset="1" stop-color="#a7e5fa"/></linearGradient></defs><rect x="8" y="8" width="604" height="504" rx="26" fill="#f7fdff"/><path d="M${item.points.replaceAll(' ', 'L')}Z" fill="url(#water-${item.id})" stroke="#173b86" stroke-width="6" stroke-linejoin="round"/>${sectors}`;
 }
 
 function vertexLabels(item) {
