@@ -340,7 +340,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgb(53 140 102 / 
 .angle-sector { fill: #fff1a0; stroke: #f4b72b; stroke-width: 3px; stroke-linejoin: round; }
 .angle-sector.unknown { fill: #48d4ee55; stroke: #0ca9d1; }
 .right-angle-mark { fill: none; stroke: #eaa800; stroke-width: 4px; stroke-linecap: round; stroke-linejoin: round; }
-.angle-value { position: absolute; z-index: 2; transform: translate(-50%, -50%); color: #074a9e; font-family: Arial, sans-serif; font-size: clamp(17px, 5.2vw, 28px); font-weight: 1000; line-height: 1; white-space: nowrap; -webkit-text-stroke: 1px #fff; text-shadow: -1px -1px #fff, 1px -1px #fff, -1px 1px #fff, 1px 1px #fff; pointer-events: none; }
+.angle-value { position: absolute; z-index: 2; transform: translate(-50%, -50%); color: #074a9e; font-family: Arial, sans-serif; font-size: clamp(21px, 6vw, 34px); font-weight: 1000; line-height: 1; white-space: nowrap; -webkit-text-stroke: 1.3px #fff; text-shadow: -1px -1px #fff, 1px -1px #fff, -1px 1px #fff, 1px 1px #fff; pointer-events: none; }
 .answer-card { margin-top: 10px; padding: 10px; display: grid; grid-template-columns: auto minmax(62px, 92px) auto; align-items: center; gap: 8px; border: 2px solid #f1ca60; border-radius: 17px; background: linear-gradient(120deg, #fff6d3, #fffdf5); box-shadow: 0 3px #edb54a45; }
 .angle-answer-label { color: #123d89; font-size: 12px; font-weight: 900; white-space: nowrap; }
 .angle-answer-label span { color: #ff9a16; font-size: 19px; }
