@@ -333,6 +333,8 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgb(53 140 102 / 
 .given-list { margin: 0 0 10px; padding: 0; list-style: none; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
 .given-list li { width: fit-content; min-width: 116px; min-height: 31px; padding: 4px 9px; display: flex; justify-content: flex-start; gap: 14px; border-left: 4px solid var(--accent); border-radius: 6px; color: #19488e; background: #fff; font-size: 12px; }
 .given-list b { color: var(--deep); }
+.angle-notation { position: relative; display: inline-block; min-width: .8em; padding: .15em .03em 0; color: inherit; font-weight: 900; line-height: 1; text-align: center; }
+.angle-notation sup { position: absolute; top: -.28em; left: 50%; transform: translateX(-50%); color: currentColor; font-family: Georgia, serif; font-size: .85em; font-weight: 1000; line-height: 1; }
 .triangle-card { padding: 6px; border: 2px solid #b8e8f8; border-radius: 16px; background: #f8fdff; box-shadow: inset 0 0 0 3px #fff; }
 .triangle-canvas { position: relative; width: 100%; aspect-ratio: 620 / 520; }
 .triangle-card svg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
@@ -343,13 +345,13 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgb(53 140 102 / 
 .angle-mark-3 { stroke: #27a75b; }
 .right-angle-mark { fill: none; stroke-width: 5px; stroke-linecap: round; stroke-linejoin: round; }
 .angle-value { position: absolute; z-index: 2; transform: translate(-50%, -50%); color: #d71920; font-family: Arial, sans-serif; font-size: clamp(13px, 3.4vw, 18px); font-weight: 1000; line-height: 1; white-space: nowrap; -webkit-text-stroke: 1.5px #fff; paint-order: stroke fill; text-shadow: 0 1px 2px rgb(115 18 18 / 25%); pointer-events: none; }
-.answer-card { margin-top: 10px; padding: 10px; display: grid; grid-template-columns: auto minmax(62px, 92px) auto; align-items: center; gap: 8px; border: 2px solid #f1ca60; border-radius: 17px; background: linear-gradient(120deg, #fff6d3, #fffdf5); box-shadow: 0 3px #edb54a45; }
+.answer-card { margin-top: 10px; padding: 10px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(112px, 1.35fr); align-items: center; gap: 8px; border: 2px solid #f1ca60; border-radius: 17px; background: linear-gradient(120deg, #fff6d3, #fffdf5); box-shadow: 0 3px #edb54a45; }
 .angle-answer-label { color: #123d89; font-size: 12px; font-weight: 900; white-space: nowrap; }
 .angle-answer-label span { color: #ff9a16; font-size: 19px; }
 .angle-input-line { display: flex; align-items: center; gap: 4px; color: #103f8e; font-size: 15px; font-weight: 900; }
 .angle-input-line input { width: 100%; min-width: 0; height: 41px; border: 2px solid #0875db; border-radius: 10px; color: #064d9a; background: #fff; text-align: center; font-size: 19px; font-weight: 900; box-shadow: inset 0 1px 3px #103c7b18; }
 .kind-answer-label { grid-column: 1; color: #123d89; font-size: 13px; font-weight: 900; }
-.answer-card select { grid-column: 2/4; width: 100%; min-width: 0; height: 40px; padding: 0 9px; border: 2px solid #0875db; border-radius: 10px; color: #064d9a; background: #fff; font-size: 12px; font-weight: 800; }
+.answer-card select { grid-column: 2; width: 100%; min-width: 0; height: 40px; padding: 0 9px; border: 2px solid #0875db; border-radius: 10px; color: #064d9a; background: #fff; font-size: 12px; font-weight: 800; }
 .angle-input-line input:focus, .answer-card select:focus { outline: 3px solid #16bfdb55; outline-offset: 1px; }
 .angle-input-line input.answer-correct, .answer-card select.answer-correct { border-color: #32a854; background: #effff0; }
 .angle-input-line input.answer-wrong, .answer-card select.answer-wrong { border-color: #df5b59; background: #fff0ed; }
@@ -397,7 +399,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgb(53 140 102 / 
 }
 @media (max-width: 390px) {
   .angle-answer-label { font-size: 10px; }
-  .answer-card { grid-template-columns: auto minmax(55px, 72px) auto; gap: 5px; padding: 8px; }
+  .answer-card { grid-template-columns: minmax(0, 1fr) minmax(104px, 1.25fr); gap: 6px; padding: 8px; }
   .angle-input-line input { height: 36px; font-size: 16px; }
   .answer-card select { height: 37px; font-size: 10px; }
 }

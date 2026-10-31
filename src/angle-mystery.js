@@ -1,9 +1,9 @@
 import './style.css';
 
 const challenges = [
-  { id: 'A', triangle: 'ABC', given: [['Góc B', '50°'], ['Góc C', '60°']], answer: 70, kind: 'acute', kindLabel: 'Tam giác nhọn', palette: 'leaf', points: '344.9,177 120,445 499.6,445', labels: { A: [344.9, 150], B: [101, 480], C: [519, 480] }, angleMarks: { A: '', B: '50°', C: '60°' } },
-  { id: 'D', triangle: 'FDE', given: [['Góc F', '50°'], ['Góc E', '30°']], answer: 100, kind: 'obtuse', kindLabel: 'Tam giác tù', palette: 'sun', points: '93,220 134.5,455 500,455', labels: { F: [74, 194], D: [110, 493], E: [522, 493] }, angleMarks: { F: '50°', D: '', E: '30°' } },
-  { id: 'P', triangle: 'MNP', given: [['Góc M', '90° (góc vuông)'], ['Góc N', '60°']], answer: 30, kind: 'right', kindLabel: 'Tam giác vuông', palette: 'violet', points: '218.5,293 125,455 499.1,455', labels: { M: [218.5, 264], N: [95, 493], P: [529, 493] }, angleMarks: { M: '90°', N: '60°', P: '' } },
+  { id: 'A', triangle: 'ABC', given: [['B', '50°'], ['C', '60°']], answer: 70, kind: 'acute', kindLabel: 'Tam giác nhọn', palette: 'leaf', points: '344.9,177 120,445 499.6,445', labels: { A: [344.9, 150], B: [101, 480], C: [519, 480] }, angleMarks: { A: '', B: '50°', C: '60°' } },
+  { id: 'D', triangle: 'FDE', given: [['F', '50°'], ['E', '30°']], answer: 100, kind: 'obtuse', kindLabel: 'Tam giác tù', palette: 'sun', points: '93,220 134.5,455 500,455', labels: { F: [74, 194], D: [110, 493], E: [522, 493] }, angleMarks: { F: '50°', D: '', E: '30°' } },
+  { id: 'P', triangle: 'MNP', given: [['M', '90° (góc vuông)'], ['N', '60°']], answer: 30, kind: 'right', kindLabel: 'Tam giác vuông', palette: 'violet', points: '218.5,293 125,455 499.1,455', labels: { M: [218.5, 264], N: [95, 493], P: [529, 493] }, angleMarks: { M: '90°', N: '60°', P: '' } },
 ];
 
 const root = document.querySelector('#angle-root');
@@ -21,10 +21,10 @@ root.innerHTML = `
           <header class="challenge-heading"><span class="challenge-badge">${index + 1}</span><div><small>NHIỆM VỤ ${index + 1}</small><h2>Giải mã góc ${item.id}</h2></div><span class="sparkle" aria-hidden="true">✦</span></header>
           <div class="challenge-body">
             <p class="given-intro">Cho tam giác <b>${item.triangle}</b> có:</p>
-            <ul class="given-list">${item.given.map(([label, value]) => `<li><span>${label}</span><b>${value}</b></li>`).join('')}</ul>
+            <ul class="given-list">${item.given.map(([vertex, value]) => `<li><span>${angleNotation(vertex)}</span><b>${value}</b></li>`).join('')}</ul>
             <div class="triangle-card"><div class="triangle-canvas"><svg viewBox="0 0 620 520" role="img" aria-label="Hình tam giác ${item.triangle} với các góc đã cho">${triangleSvg(item)}</svg>${vertexLabels(item)}${angleLabels(item)}</div></div>
             <div class="answer-card">
-              <label class="angle-answer-label" for="angle-value-${item.id}"><span>☞</span> Đáp án: Góc ${item.id} =</label>
+              <label class="angle-answer-label" for="angle-value-${item.id}"><span>☞</span> Đáp án: ${angleNotation(item.id)} =</label>
               <div class="angle-input-line"><input id="angle-value-${item.id}" data-angle="${item.id}" type="number" min="0" max="180" inputmode="numeric" aria-label="Số đo góc ${item.id}" autocomplete="off" /><span>°</span></div>
               <label class="kind-answer-label" for="angle-kind-${item.id}">Tam giác</label>
               <select id="angle-kind-${item.id}" data-kind="${item.id}" aria-label="Loại tam giác ${item.triangle}"><option value="">Chọn loại tam giác</option><option value="acute">Tam giác nhọn</option><option value="obtuse">Tam giác tù</option><option value="right">Tam giác vuông</option></select>
@@ -39,6 +39,10 @@ root.innerHTML = `
   <div class="start-overlay" id="angle-start-overlay" role="dialog" aria-modal="true" aria-labelledby="angle-start-title"><form class="start-card" id="angle-start-form"><div class="start-mark" aria-hidden="true">✦</div><p class="start-eyebrow">SẴN SÀNG CHƯA?</p><h2 id="angle-start-title">Bắt đầu giải mã</h2><p class="start-copy">Nhập thông tin để lưu kết quả cho giáo viên.</p><label class="name-label" for="angle-name">Họ và tên</label><input id="angle-name" maxlength="60" autocomplete="name" placeholder="Ví dụ: Nguyễn Minh Anh" required /><label class="name-label" for="angle-class-input">Lớp</label><input id="angle-class-input" maxlength="40" placeholder="Ví dụ: 7A" /><button class="start-button" id="angle-start-button" type="submit" disabled>Bắt đầu làm bài <span aria-hidden="true">→</span></button><p class="privacy-note">Tên, lớp, câu trả lời và điểm sẽ được gửi cho giáo viên.</p></form></div>
   <audio id="angle-music" src="/olympia-countdown.mp3" preload="auto" loop></audio>
 `;
+
+function angleNotation(vertex) {
+  return `<span class="angle-notation" aria-label="góc ${vertex}"><span>${vertex}</span><sup aria-hidden="true">^</sup></span>`;
+}
 
 function triangleSvg(item) {
   const [a, b, c] = item.points.split(' ').map((point) => point.split(',').map(Number));
