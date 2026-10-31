@@ -22,7 +22,7 @@ root.innerHTML = `
           <div class="challenge-body">
             <p class="given-intro">Cho tam giác <b>${item.triangle}</b> có:</p>
             <ul class="given-list">${item.given.map(([label, value]) => `<li><span>${label}</span><b>${value}</b></li>`).join('')}</ul>
-            <div class="triangle-card"><svg viewBox="0 0 620 520" role="img" aria-label="Hình tam giác ${item.triangle} với các góc đã cho">${triangleSvg(item)}</svg></div>
+            <div class="triangle-card"><div class="triangle-canvas"><svg viewBox="0 0 620 520" role="img" aria-label="Hình tam giác ${item.triangle} với các góc đã cho">${triangleSvg(item)}</svg>${vertexLabels(item)}</div></div>
             <div class="answer-card">
               <label class="angle-answer-label" for="angle-value-${item.id}"><span>☞</span> Đáp án: Góc ${item.id} =</label>
               <div class="angle-input-line"><input id="angle-value-${item.id}" data-angle="${item.id}" type="number" min="0" max="180" inputmode="numeric" aria-label="Số đo góc ${item.id}" autocomplete="off" /><span>°</span></div>
@@ -66,7 +66,11 @@ function triangleSvg(item) {
       : `<path class="angle-sector ${value ? '' : 'unknown'}" d="M${center[0]},${center[1]}L${p1[0]},${p1[1]}A${radius},${radius} 0 0 1 ${p2[0]},${p2[1]}Z"/>`;
     return `${mark}${value ? `<text x="${labelX}" y="${labelY + 8}" class="angle-value">${value}</text>` : ''}`;
   }).join('');
-  return `<defs><linearGradient id="water-${item.id}" x2="0" y2="1"><stop stop-color="#c4f1ff"/><stop offset="1" stop-color="#86d9f7"/></linearGradient></defs><rect x="8" y="8" width="604" height="504" rx="26" fill="#f7fdff"/><path d="M${item.points.replaceAll(' ', 'L')}Z" fill="url(#water-${item.id})" stroke="#173b86" stroke-width="8" stroke-linejoin="round"/><path d="M${item.points.replaceAll(' ', 'L')}Z" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>${sectors}${Object.entries(item.labels).map(([letter, [x, y]]) => `<text x="${x}" y="${y}" class="vertex-label">${letter}</text>`).join('')}</svg>`;
+  return `<defs><linearGradient id="water-${item.id}" x2="0" y2="1"><stop stop-color="#c4f1ff"/><stop offset="1" stop-color="#86d9f7"/></linearGradient></defs><rect x="8" y="8" width="604" height="504" rx="26" fill="#f7fdff"/><path d="M${item.points.replaceAll(' ', 'L')}Z" fill="url(#water-${item.id})" stroke="#173b86" stroke-width="8" stroke-linejoin="round"/><path d="M${item.points.replaceAll(' ', 'L')}Z" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>${sectors}`;
+}
+
+function vertexLabels(item) {
+  return Object.entries(item.labels).map(([letter, [x, y]]) => `<span class="vertex-label" style="left:${x / 6.2}%;top:${y / 5.2}%" aria-hidden="true">${letter}</span>`).join('');
 }
 
 const music = document.querySelector('#angle-music');
