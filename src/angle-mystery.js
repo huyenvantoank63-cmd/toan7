@@ -1,9 +1,9 @@
 import './style.css';
 
 const challenges = [
-  { id: 'A', triangle: 'ABC', given: [['Góc B', '50°'], ['Góc C', '60°']], answer: 70, kind: 'acute', kindLabel: 'Tam giác nhọn', palette: 'leaf', points: '285,250 120,460 465,460', labels: { A: [285, 230], B: [103, 488], C: [472, 488] }, marks: [['B', '50°', 175, 435], ['C', '60°', 400, 435], ['A', '?', 285, 283]] },
-  { id: 'D', triangle: 'FDE', given: [['Góc F', '50°'], ['Góc E', '30°']], answer: 100, kind: 'obtuse', kindLabel: 'Tam giác tù', palette: 'sun', points: '165,275 175,460 500,460', labels: { F: [149, 254], D: [153, 489], E: [509, 489] }, marks: [['F', '50°', 201, 330], ['E', '30°', 438, 434], ['D', '?', 204, 430]] },
-  { id: 'P', triangle: 'MNP', given: [['Góc M', '90° (góc vuông)'], ['Góc N', '60°']], answer: 30, kind: 'right', kindLabel: 'Tam giác vuông', palette: 'violet', points: '285,250 115,460 470,460', labels: { M: [285, 230], N: [97, 489], P: [480, 489] }, marks: [['M', '90°', 285, 306], ['N', '60°', 173, 431], ['P', '?', 415, 431]] },
+  { id: 'A', triangle: 'ABC', given: [['Góc B', '50°'], ['Góc C', '60°']], answer: 70, kind: 'acute', kindLabel: 'Tam giác nhọn', palette: 'leaf', points: '345,177 120,445 500,445', labels: { A: [345, 150], B: [101, 480], C: [519, 480] }, angleMarks: { A: '', B: '50°', C: '60°' } },
+  { id: 'D', triangle: 'FDE', given: [['Góc F', '50°'], ['Góc E', '30°']], answer: 100, kind: 'obtuse', kindLabel: 'Tam giác tù', palette: 'sun', points: '94,220 135,455 500,455', labels: { F: [78, 197], D: [116, 490], E: [519, 490] }, angleMarks: { F: '50°', D: '', E: '30°' } },
+  { id: 'P', triangle: 'MNP', given: [['Góc M', '90° (góc vuông)'], ['Góc N', '60°']], answer: 30, kind: 'right', kindLabel: 'Tam giác vuông', palette: 'violet', points: '219,293 125,455 500,455', labels: { M: [219, 266], N: [101, 490], P: [520, 490] }, angleMarks: { M: '90°', N: '60°', P: '' } },
 ];
 
 const root = document.querySelector('#angle-root');
@@ -42,9 +42,31 @@ root.innerHTML = `
 
 function triangleSvg(item) {
   const [a, b, c] = item.points.split(' ').map((point) => point.split(',').map(Number));
-  const vertexKeys = Object.keys(item.labels);
-  const positions = Object.fromEntries(vertexKeys.map((key, index) => [key, [a, b, c][index]]));
-  return `<defs><linearGradient id="water-${item.id}" x2="0" y2="1"><stop stop-color="#c4f1ff"/><stop offset="1" stop-color="#86d9f7"/></linearGradient></defs><rect x="8" y="8" width="604" height="504" rx="26" fill="#f7fdff"/><path d="M${item.points.replaceAll(' ', 'L')}Z" fill="url(#water-${item.id})" stroke="#173b86" stroke-width="8" stroke-linejoin="round"/><path d="M${item.points.replaceAll(' ', 'L')}Z" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>${Object.entries(item.labels).map(([letter, [x, y]]) => `<text x="${x}" y="${y}" class="vertex-label">${letter}</text>`).join('')}${item.marks.map(([vertex, value, x, y]) => `<g class="angle-mark" transform="translate(${positions[vertex][0]} ${positions[vertex][1]})"><circle r="26" fill="#fff5ad" stroke="#ffc62e" stroke-width="5"/><text x="${x - positions[vertex][0]}" y="${y - positions[vertex][1] + 7}" text-anchor="middle">${value}</text></g>`).join('')}</svg>`;
+  const points = [a, b, c];
+  const positions = Object.fromEntries([...item.triangle].map((letter, index) => [letter, points[index]]));
+  const sectors = [...item.triangle].map((letter, index) => {
+    const center = positions[letter];
+    const neighbor1 = positions[item.triangle[(index + 1) % 3]];
+    const neighbor2 = positions[item.triangle[(index + 2) % 3]];
+    let start = Math.atan2(neighbor1[1] - center[1], neighbor1[0] - center[0]);
+    let end = Math.atan2(neighbor2[1] - center[1], neighbor2[0] - center[0]);
+    let sweep = (end - start + Math.PI * 2) % (Math.PI * 2);
+    if (sweep > Math.PI) { [start, end] = [end, start]; sweep = Math.PI * 2 - sweep; }
+    const radius = 35;
+    const p1 = [center[0] + radius * Math.cos(start), center[1] + radius * Math.sin(start)];
+    const p2 = [center[0] + radius * Math.cos(end), center[1] + radius * Math.sin(end)];
+    const bisector = start + sweep / 2;
+    const labelRadius = 62;
+    const labelX = center[0] + labelRadius * Math.cos(bisector);
+    const labelY = center[1] + labelRadius * Math.sin(bisector);
+    const value = item.angleMarks[letter];
+    const rightAngle = value === '90°';
+    const mark = rightAngle
+      ? (() => { const u = [Math.cos(start), Math.sin(start)]; const v = [Math.cos(end), Math.sin(end)]; const size = 20; const q1 = [center[0] + size * u[0], center[1] + size * u[1]]; const q2 = [q1[0] + size * v[0], q1[1] + size * v[1]]; const q3 = [center[0] + size * v[0], center[1] + size * v[1]]; return `<path class="right-angle-mark" d="M${q1[0]},${q1[1]}L${q2[0]},${q2[1]}L${q3[0]},${q3[1]}"/>`; })()
+      : `<path class="angle-sector ${value ? '' : 'unknown'}" d="M${center[0]},${center[1]}L${p1[0]},${p1[1]}A${radius},${radius} 0 0 1 ${p2[0]},${p2[1]}Z"/>`;
+    return `${mark}${value ? `<text x="${labelX}" y="${labelY + 8}" class="angle-value">${value}</text>` : ''}`;
+  }).join('');
+  return `<defs><linearGradient id="water-${item.id}" x2="0" y2="1"><stop stop-color="#c4f1ff"/><stop offset="1" stop-color="#86d9f7"/></linearGradient></defs><rect x="8" y="8" width="604" height="504" rx="26" fill="#f7fdff"/><path d="M${item.points.replaceAll(' ', 'L')}Z" fill="url(#water-${item.id})" stroke="#173b86" stroke-width="8" stroke-linejoin="round"/><path d="M${item.points.replaceAll(' ', 'L')}Z" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>${sectors}${Object.entries(item.labels).map(([letter, [x, y]]) => `<text x="${x}" y="${y}" class="vertex-label">${letter}</text>`).join('')}</svg>`;
 }
 
 const music = document.querySelector('#angle-music');
