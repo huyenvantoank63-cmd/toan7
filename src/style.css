@@ -239,10 +239,10 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgb(53 140 102 / 
 .angle-progress > i { grid-column: 1/-1; height: 8px; margin-top: 3px; overflow: hidden; border-radius: 10px; background: #bce9ef; }
 .angle-progress em { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #18b8d7, #22bd62); transition: width .2s; }
 .challenge-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
-.challenge-card { --accent: #33ae54; --soft: #edfff0; --deep: #0c7042; min-width: 0; overflow: hidden; border: 4px solid var(--accent); border-radius: 27px; background: #fff; box-shadow: 0 6px #26763a30, 0 13px 18px rgb(21 79 67 / 9%); }
-.challenge-card.sun { --accent: #f29e1e; --soft: #fff6e3; --deep: #b55a14; }
-.challenge-card.violet { --accent: #a347ef; --soft: #f7edff; --deep: #6530ac; }
-.challenge-heading { min-height: 76px; padding: 10px 13px; display: flex; align-items: center; gap: 10px; color: white; background: linear-gradient(100deg, var(--accent), color-mix(in srgb, var(--accent), white 17%)); text-shadow: 0 2px rgb(0 0 0 / 22%); box-shadow: inset 0 4px rgb(255 255 255 / 30%), inset 0 -4px rgb(0 0 0 / 10%); }
+.challenge-card { --accent: #21863f; --soft: #edfff0; --deep: #0c7042; min-width: 0; overflow: hidden; border: 4px solid var(--accent); border-radius: 27px; background: #fff; box-shadow: 0 6px #26763a30, 0 13px 18px rgb(21 79 67 / 9%); }
+.challenge-card.sun { --accent: #d46c12; --soft: #fff6e3; --deep: #9b4308; }
+.challenge-card.violet { --accent: #7730bd; --soft: #f7edff; --deep: #542096; }
+.challenge-heading { min-height: 76px; padding: 10px 13px; display: flex; align-items: center; gap: 10px; color: #fff; background-color: var(--accent); background-image: linear-gradient(100deg, var(--accent), var(--accent)); text-shadow: 0 2px 2px rgb(0 0 0 / 45%); box-shadow: inset 0 4px rgb(255 255 255 / 22%), inset 0 -4px rgb(0 0 0 / 14%); }
 .challenge-badge { display: grid; place-items: center; width: 43px; height: 43px; flex: 0 0 43px; border: 3px solid #fff; border-radius: 50%; color: var(--deep); background: #fff6c5; font-size: 20px; font-weight: 1000; box-shadow: 0 3px rgb(0 0 0 / 15%); }
 .challenge-heading small { display: block; font-size: 9px; font-weight: 900; letter-spacing: 1px; }
 .challenge-heading h2 { margin: 1px 0 0; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: clamp(15px, 1.6vw, 22px); line-height: 1.1; }
@@ -257,7 +257,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgb(53 140 102 / 
 .vertex-label { fill: #0755a9; stroke: white; stroke-width: 6px; paint-order: stroke; font: 1000 38px 'Segoe UI', sans-serif; text-anchor: middle; }
 .angle-sector { fill: #fff1a0; stroke: #f4b72b; stroke-width: 3px; stroke-linejoin: round; }
 .angle-sector.unknown { fill: #48d4ee55; stroke: #0ca9d1; }
-.right-angle-mark { fill: #fff1a0; stroke: #f4b72b; stroke-width: 3px; stroke-linejoin: round; }
+.right-angle-mark { fill: none; stroke: #eaa800; stroke-width: 4px; stroke-linecap: round; stroke-linejoin: round; }
 .angle-value { fill: #0755b3; stroke: white; stroke-width: 5px; paint-order: stroke; font: 1000 25px 'Segoe UI', sans-serif; text-anchor: middle; }
 .answer-card { margin-top: 10px; padding: 10px; display: grid; grid-template-columns: auto minmax(62px, 92px) auto; align-items: center; gap: 8px; border: 2px solid #f1ca60; border-radius: 17px; background: linear-gradient(120deg, #fff6d3, #fffdf5); box-shadow: 0 3px #edb54a45; }
 .angle-answer-label { color: #123d89; font-size: 12px; font-weight: 900; white-space: nowrap; }

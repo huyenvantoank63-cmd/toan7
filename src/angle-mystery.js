@@ -62,7 +62,7 @@ function triangleSvg(item) {
     const value = item.angleMarks[letter];
     const rightAngle = value === '90°';
     const mark = rightAngle
-      ? (() => { const u = [Math.cos(start), Math.sin(start)]; const v = [Math.cos(end), Math.sin(end)]; const size = 20; const q1 = [center[0] + size * u[0], center[1] + size * u[1]]; const q2 = [q1[0] + size * v[0], q1[1] + size * v[1]]; const q3 = [center[0] + size * v[0], center[1] + size * v[1]]; return `<path class="right-angle-mark" d="M${q1[0]},${q1[1]}L${q2[0]},${q2[1]}L${q3[0]},${q3[1]}"/>`; })()
+      ? (() => { const u = [Math.cos(start), Math.sin(start)]; const v = [Math.cos(end), Math.sin(end)]; const size = 24; const q1 = [center[0] + size * u[0], center[1] + size * u[1]]; const q2 = [q1[0] + size * v[0], q1[1] + size * v[1]]; const q3 = [center[0] + size * v[0], center[1] + size * v[1]]; return `<path class="right-angle-mark" d="M${q1[0]},${q1[1]}L${q2[0]},${q2[1]}L${q3[0]},${q3[1]}"/>`; })()
       : `<path class="angle-sector ${value ? '' : 'unknown'}" d="M${center[0]},${center[1]}L${p1[0]},${p1[1]}A${radius},${radius} 0 0 1 ${p2[0]},${p2[1]}Z"/>`;
     return `${mark}${value ? `<text x="${labelX}" y="${labelY + 8}" class="angle-value">${value}</text>` : ''}`;
   }).join('');
