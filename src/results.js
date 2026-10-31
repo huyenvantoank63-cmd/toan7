@@ -3,12 +3,12 @@ import './style.css';
 const apiBase = import.meta.env.VITE_API_URL || '';
 const root = document.querySelector('#results-root');
 const answerLabels = {
-  'straight-angle': 'Tổng các góc trên đường thẳng xy bằng 180°',
-  distractor: 'Mệnh đề nhiễu về góc CAB và ACB',
-  'parallel-line': 'Qua A kẻ đường thẳng xy // BC',
-  'lower-alternate': 'Cặp góc so le trong phía AC',
-  'upper-alternate': 'Cặp góc so le trong phía AB',
-  conclusion: 'Kết luận tổng ba góc bằng 180°',
+  'straight-angle': '∠xAB + ∠BAC + ∠CAy = ∠xAy = 180°',
+  distractor: 'Vì xy ∥ BC nên ∠CAB = ∠ACB (so le trong)',
+  'parallel-line': 'Qua A kẻ đường thẳng xy ∥ BC',
+  'lower-alternate': 'Vì xy ∥ BC nên ∠yAC = ∠ACB (so le trong)',
+  'upper-alternate': 'Vì xy ∥ BC nên ∠xAB = ∠ABC (so le trong)',
+  conclusion: 'Suy ra ∠ABC + ∠BAC + ∠ACB = 180°',
 };
 
 root.innerHTML = `

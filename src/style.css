@@ -264,7 +264,7 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgb(53 140 102 / 
 .proof-preview-steps { display: grid; gap: 6px; }
 .proof-preview-step { padding: 7px; display: grid; gap: 5px; border: 1px solid #72dbe5; border-radius: 8px; background: #e9fbff; }
 .proof-preview-step > b { color: #0a4d9a; font-size: 10px; }
-.preview-proof-answer { padding: 5px 7px; border: 1px solid; border-radius: 6px; font-size: 10px; line-height: 1.4; }
+.preview-proof-answer { min-width: 0; padding: 6px 8px; border: 1px solid; border-radius: 6px; overflow-wrap: anywhere; font-size: 11px; line-height: 1.45; }
 .preview-proof-answer.is-correct { border-color: #78c98a; color: #267744; background: #edffef; }
 .preview-proof-answer.is-wrong { border-color: #e6a29c; color: #9d4540; background: #fff0ed; }
 .discard-preview { border-color: #ec83a0; background: #fff4f7; }
