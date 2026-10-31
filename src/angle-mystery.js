@@ -2,8 +2,8 @@ import './style.css';
 
 const challenges = [
   { id: 'A', triangle: 'ABC', given: [['Góc B', '50°'], ['Góc C', '60°']], answer: 70, kind: 'acute', kindLabel: 'Tam giác nhọn', palette: 'leaf', points: '345,177 120,445 500,445', labels: { A: [345, 150], B: [101, 480], C: [519, 480] }, angleMarks: { A: '', B: '50°', C: '60°' } },
-  { id: 'D', triangle: 'FDE', given: [['Góc F', '50°'], ['Góc E', '30°']], answer: 100, kind: 'obtuse', kindLabel: 'Tam giác tù', palette: 'sun', points: '94,220 135,455 500,455', labels: { F: [78, 197], D: [116, 490], E: [519, 490] }, angleMarks: { F: '50°', D: '', E: '30°' } },
-  { id: 'P', triangle: 'MNP', given: [['Góc M', '90° (góc vuông)'], ['Góc N', '60°']], answer: 30, kind: 'right', kindLabel: 'Tam giác vuông', palette: 'violet', points: '219,293 125,455 500,455', labels: { M: [219, 266], N: [101, 490], P: [520, 490] }, angleMarks: { M: '90°', N: '60°', P: '' } },
+  { id: 'D', triangle: 'FDE', given: [['Góc F', '50°'], ['Góc E', '30°']], answer: 100, kind: 'obtuse', kindLabel: 'Tam giác tù', palette: 'sun', points: '94,220 135,455 500,455', labels: { F: [75, 194], D: [111, 493], E: [522, 493] }, angleMarks: { F: '50°', D: '', E: '30°' } },
+  { id: 'P', triangle: 'MNP', given: [['Góc M', '90° (góc vuông)'], ['Góc N', '60°']], answer: 30, kind: 'right', kindLabel: 'Tam giác vuông', palette: 'violet', points: '219,293 125,455 500,455', labels: { M: [219, 264], N: [95, 493], P: [530, 493] }, angleMarks: { M: '90°', N: '60°', P: '' } },
 ];
 
 const root = document.querySelector('#angle-root');
