@@ -8,6 +8,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: file('./index.html'),
+        angleMystery: file('./angle-mystery.html'),
         results: file('./results.html'),
       },
     },

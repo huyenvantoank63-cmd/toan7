@@ -17,7 +17,7 @@ root.innerHTML = `
       <a class="results-back" href="/">← Về phiếu học tập</a>
       <span class="sheet-kicker">PHIẾU HỌC TẬP · TOÁN 7</span>
       <h1>Kết quả bài làm</h1>
-      <p>Theo dõi điểm số và câu trả lời học sinh đã nộp.</p>
+      <p>Theo dõi điểm số và câu trả lời của các phiếu học tập đã nộp.</p>
     </header>
     <section class="results-card">
       <form id="teacher-login" class="teacher-login">
@@ -77,15 +77,18 @@ function renderRows(submissions) {
   }
   body.innerHTML = submissions.map((item) => {
     const answers = Array.isArray(item.answers) ? item.answers : [];
-    const answerText = answers.map((answer, index) => `${index + 1}. ${answerLabels[answer] || 'Chưa chọn'}`).join(' · ');
+    const isAngleMystery = item.exerciseId === 'angle-mystery';
+    const answerText = isAngleMystery
+      ? answers.map((answer) => `${escapeHtml(answer.triangle)}: góc ${escapeHtml(answer.angle || '—')}°; ${escapeHtml({ acute: 'tam giác nhọn', obtuse: 'tam giác tù', right: 'tam giác vuông' }[answer.kind] || 'chưa chọn loại')}`).join(' · ')
+      : answers.map((answer, index) => `${index + 1}. ${answerLabels[answer] || 'Chưa chọn'}`).join(' · ');
     const submittedAt = new Date(item.submittedAt).toLocaleString('vi-VN');
     return `<tr>
       <td class="student-name-cell">${escapeHtml(item.name)}</td>
       <td>${escapeHtml(item.class || '—')}</td>
       <td><span class="score-pill">${escapeHtml(item.score)}/10</span></td>
-      <td>${escapeHtml(item.correctCount)}/5</td>
+      <td>${escapeHtml(item.correctCount)}/${isAngleMystery ? 6 : 5}</td>
       <td>${formatTime(item.elapsedSeconds)}</td>
-      <td class="answer-list-cell">${escapeHtml(answerText)}<br><small>Thẻ loại bỏ: ${escapeHtml(answerLabels[item.discardedAnswer] || 'Chưa chọn')}</small></td>
+      <td class="answer-list-cell"><strong>${isAngleMystery ? 'Đội đặc nhiệm giải mã góc' : 'Giải mã chứng minh'}</strong><br>${isAngleMystery ? answerText : `${escapeHtml(answerText)}<br><small>Thẻ loại bỏ: ${escapeHtml(answerLabels[item.discardedAnswer] || 'Chưa chọn')}</small>`}</td>
       <td>${escapeHtml(submittedAt)}</td>
     </tr>`;
   }).join('');

@@ -214,6 +214,108 @@ button:focus-visible, input:focus-visible { outline: 3px solid rgb(53 140 102 / 
   .results-toolbar > div { justify-content: flex-end; }
 }
 
+/* Angle mystery worksheet: three visual geometry challenges with short answer fields. */
+.angle-app { width: min(100% - 30px, 1600px); margin: 0 auto; padding: 20px 0 34px; color: #173e83; }
+.angle-sheet { overflow: hidden; padding: 14px; border: 4px solid #f4d247; border-radius: 28px; background: #fffef2; box-shadow: 0 15px 42px rgb(30 82 99 / 19%), inset 0 0 0 3px #fff8c5; }
+.angle-banner { position: relative; min-height: 175px; padding: 16px; display: grid; grid-template-columns: minmax(150px, .8fr) minmax(360px, 1.8fr) minmax(255px, .9fr); align-items: center; gap: 12px; border: 4px solid #995018; border-radius: 24px 24px 15px 15px; background: radial-gradient(ellipse at 50% 40%, #fff9d8 0 30%, transparent 60%), linear-gradient(180deg, #55d8f4, #b7f4fd 60%, #55c6e2); box-shadow: inset 0 -6px #3992aa, 0 5px #ffd751; }
+.banner-plaque { justify-self: start; padding: 12px; display: flex; align-items: center; gap: 9px; border: 3px solid #68320f; border-radius: 12px 22px 15px 26px; color: #fff6d4; background: linear-gradient(#dc8b39, #974516); font-weight: 1000; font-size: clamp(12px, 1.2vw, 17px); text-shadow: 0 2px #63320e; transform: rotate(-3deg); box-shadow: inset 0 3px #ffd77b, 0 4px #663611; }
+.plaque-icon { color: #32d3ff; font-size: 38px; -webkit-text-stroke: 2px white; }
+.banner-title { text-align: center; }
+.banner-title > span { color: #1687f1; font-size: clamp(23px, 3.4vw, 46px); font-weight: 1000; letter-spacing: 1px; -webkit-text-stroke: 1px #0756bb; text-shadow: 0 3px #fff, 0 5px #074b9f; }
+.banner-title h1 { margin: -2px 0 2px; color: #ffd525; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: clamp(35px, 5vw, 69px); font-weight: 1000; line-height: 1; letter-spacing: 1px; -webkit-text-stroke: 2px #a8320a; text-shadow: 0 4px #9f3209, 0 8px #5d270e, 2px 10px rgb(59 36 19 / 22%); }
+.banner-title p { display: inline-block; margin: 8px 0 0; padding: 7px 13px; border: 2px solid #f6d453; border-radius: 999px; color: #743417; background: #fff9d9; font-size: clamp(10px, 1vw, 14px); font-weight: 900; }
+.banner-student { justify-self: end; width: 100%; padding: 12px; display: grid; gap: 7px; border: 3px solid #edbb4d; border-radius: 16px; color: #75421d; background: linear-gradient(#fffef1, #fff2bc); box-shadow: 0 4px #b56d22; font-size: 11px; }
+.banner-student > b { justify-self: end; margin-top: -22px; padding: 4px 9px; border: 1px solid #d2a644; border-radius: 6px; color: #783b19; background: linear-gradient(#fff2a6, #ffc84b); font-size: 10px; transform: rotate(2deg); }
+.banner-student > span { overflow: hidden; white-space: nowrap; }
+.banner-student strong { color: #36573c; }
+.angle-media { display: flex; align-items: center; justify-content: space-between; gap: 5px; }
+.angle-mission { min-height: 72px; margin: 15px 0 16px; padding: 10px 16px; display: flex; align-items: center; gap: 12px; border: 3px solid #35dcb8; border-radius: 20px; color: #145448; background: linear-gradient(90deg, #e1fff1, #f7fff1); box-shadow: 0 4px #4ec58c; font-size: 13px; line-height: 1.45; }
+.angle-mission > span { font-size: 26px; }
+.angle-mission strong { color: #1c903d; font-size: 15px; }
+.angle-mission small { display: block; color: #638d75; font-size: 10px; }
+.angle-progress { min-width: 120px; margin-left: auto; display: grid; grid-template-columns: auto auto; gap: 1px 5px; color: #769589; font-size: 9px; }
+.angle-progress b { color: #0878cf; font-size: 13px; }
+.angle-progress > span { align-self: center; }
+.angle-progress > i { grid-column: 1/-1; height: 8px; margin-top: 3px; overflow: hidden; border-radius: 10px; background: #bce9ef; }
+.angle-progress em { display: block; width: 0; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #18b8d7, #22bd62); transition: width .2s; }
+.challenge-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: stretch; }
+.challenge-card { --accent: #33ae54; --soft: #edfff0; --deep: #0c7042; min-width: 0; overflow: hidden; border: 4px solid var(--accent); border-radius: 27px; background: #fff; box-shadow: 0 6px #26763a30, 0 13px 18px rgb(21 79 67 / 9%); }
+.challenge-card.sun { --accent: #f29e1e; --soft: #fff6e3; --deep: #b55a14; }
+.challenge-card.violet { --accent: #a347ef; --soft: #f7edff; --deep: #6530ac; }
+.challenge-heading { min-height: 76px; padding: 10px 13px; display: flex; align-items: center; gap: 10px; color: white; background: linear-gradient(100deg, var(--accent), color-mix(in srgb, var(--accent), white 17%)); text-shadow: 0 2px rgb(0 0 0 / 22%); box-shadow: inset 0 4px rgb(255 255 255 / 30%), inset 0 -4px rgb(0 0 0 / 10%); }
+.challenge-badge { display: grid; place-items: center; width: 43px; height: 43px; flex: 0 0 43px; border: 3px solid #fff; border-radius: 50%; color: var(--deep); background: #fff6c5; font-size: 20px; font-weight: 1000; box-shadow: 0 3px rgb(0 0 0 / 15%); }
+.challenge-heading small { display: block; font-size: 9px; font-weight: 900; letter-spacing: 1px; }
+.challenge-heading h2 { margin: 1px 0 0; font-family: 'Trebuchet MS', 'Segoe UI', sans-serif; font-size: clamp(15px, 1.6vw, 22px); line-height: 1.1; }
+.sparkle { margin-left: auto; color: #fff6a2; font-size: 24px; }
+.challenge-body { padding: 13px 14px 14px; background: linear-gradient(#fff, var(--soft)); }
+.given-intro { margin: 0 0 7px; color: #123e87; font-size: clamp(12px, 1.1vw, 15px); font-weight: 750; }
+.given-list { margin: 0 0 10px; padding: 0; list-style: none; display: grid; gap: 4px; }
+.given-list li { min-height: 31px; padding: 4px 9px; display: flex; justify-content: space-between; gap: 9px; border-left: 4px solid var(--accent); border-radius: 6px; color: #19488e; background: #fff; font-size: 12px; }
+.given-list b { color: var(--deep); }
+.triangle-card { padding: 6px; border: 2px solid #b8e8f8; border-radius: 16px; background: #f8fdff; box-shadow: inset 0 0 0 3px #fff; }
+.triangle-card svg { display: block; width: 100%; height: auto; }
+.vertex-label { fill: #0755a9; stroke: white; stroke-width: 6px; paint-order: stroke; font: 1000 38px 'Segoe UI', sans-serif; text-anchor: middle; }
+.angle-mark circle { fill: #fff1a0; }
+.angle-mark text { fill: #0755b3; stroke: white; stroke-width: 4px; paint-order: stroke; font: 1000 25px 'Segoe UI', sans-serif; }
+.answer-card { margin-top: 10px; padding: 10px; display: grid; grid-template-columns: auto minmax(62px, 92px) auto; align-items: center; gap: 8px; border: 2px solid #f1ca60; border-radius: 17px; background: linear-gradient(120deg, #fff6d3, #fffdf5); box-shadow: 0 3px #edb54a45; }
+.angle-answer-label { color: #123d89; font-size: 12px; font-weight: 900; white-space: nowrap; }
+.angle-answer-label span { color: #ff9a16; font-size: 19px; }
+.angle-input-line { display: flex; align-items: center; gap: 4px; color: #103f8e; font-size: 15px; font-weight: 900; }
+.angle-input-line input { width: 100%; min-width: 0; height: 41px; border: 2px solid #0875db; border-radius: 10px; color: #064d9a; background: #fff; text-align: center; font-size: 19px; font-weight: 900; box-shadow: inset 0 1px 3px #103c7b18; }
+.kind-answer-label { grid-column: 1; color: #123d89; font-size: 13px; font-weight: 900; }
+.answer-card select { grid-column: 2/4; width: 100%; min-width: 0; height: 40px; padding: 0 9px; border: 2px solid #0875db; border-radius: 10px; color: #064d9a; background: #fff; font-size: 12px; font-weight: 800; }
+.angle-input-line input:focus, .answer-card select:focus { outline: 3px solid #16bfdb55; outline-offset: 1px; }
+.angle-input-line input.answer-correct, .answer-card select.answer-correct { border-color: #32a854; background: #effff0; }
+.angle-input-line input.answer-wrong, .answer-card select.answer-wrong { border-color: #df5b59; background: #fff0ed; }
+.card-feedback { min-height: 24px; margin-top: 8px; color: #668796; text-align: center; font-size: 10px; font-weight: 800; }
+.card-feedback.feedback-correct { color: #218246; }
+.card-feedback.feedback-wrong { color: #ae4942; }
+.angle-submit-panel { min-height: 96px; margin-top: 15px; padding: 13px 18px; display: flex; align-items: center; gap: 13px; border: 3px solid #28c6df; border-radius: 20px; background: linear-gradient(100deg, #e1fbff, #fff8d5, #e6fff1); box-shadow: 0 5px #0879c32c; }
+.submit-emblem { display: grid; place-items: center; width: 53px; height: 53px; flex: 0 0 53px; border-radius: 16px; background: #fff0a8; font-size: 27px; }
+.submit-copy { flex: 1; }
+.submit-copy h2 { margin: 0 0 3px; color: #075bb1; font-size: 16px; }
+.submit-copy p { max-width: 690px; margin: 0; padding: 4px 0; color: #527c76; font-size: 12px; font-weight: 750; line-height: 1.5; }
+.submit-copy p.is-success { color: #218246; }
+.submit-copy p.is-hint { color: #936117; }
+.submit-actions { display: flex; gap: 8px; }
+.angle-submit-panel > .submit-button { min-height: 40px; padding: 0 16px; border-radius: 10px; font-size: 12px; }
+.angle-submit-panel > .reset-button { min-height: 40px; padding: 0 13px; border-radius: 10px; font-size: 11px; }
+.angle-submit-panel #angle-retry { padding: 10px; border: 0; border-radius: 8px; color: #fff; background: #d76a39; font-weight: 800; }
+.angle-footer { padding: 14px 2px 4px; color: #217246; text-align: center; font-size: 11px; font-weight: 850; }
+.angle-footer span { padding: 0 9px; color: #1685dc; }
+.angle-submit-panel button:disabled { cursor: default; filter: grayscale(.4); opacity: .68; }
+@media (max-width: 1050px) {
+  .angle-banner { grid-template-columns: 1fr minmax(300px, 1.8fr) 245px; }
+  .challenge-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .challenge-card:last-child { grid-column: 1/-1; width: min(100%, 620px); justify-self: center; }
+}
+@media (max-width: 760px) {
+  .angle-app { width: min(100% - 16px, 640px); padding-top: 8px; }
+  .angle-sheet { padding: 8px; border-width: 3px; border-radius: 18px; }
+  .angle-banner { grid-template-columns: 1fr; gap: 9px; padding: 12px; }
+  .banner-plaque { justify-self: center; }
+  .banner-student { width: min(100%, 390px); justify-self: center; }
+  .angle-mission { align-items: start; flex-wrap: wrap; padding: 9px 11px; font-size: 11px; }
+  .angle-mission > div:nth-child(2) { flex: 1; }
+  .angle-progress { width: 100%; margin-left: 39px; }
+  .challenge-grid { grid-template-columns: 1fr; gap: 11px; }
+  .challenge-card:last-child { grid-column: auto; width: auto; }
+  .challenge-heading h2 { font-size: 19px; }
+  .challenge-body { padding: 12px; }
+  .triangle-card { width: min(100%, 430px); margin-inline: auto; }
+  .answer-card { max-width: 460px; margin-inline: auto; }
+  .angle-submit-panel { align-items: start; flex-wrap: wrap; padding: 11px; }
+  .submit-emblem { width: 42px; height: 42px; flex-basis: 42px; font-size: 22px; }
+  .submit-copy { min-width: calc(100% - 65px); }
+  .submit-actions { width: 100%; justify-content: end; }
+}
+@media (max-width: 390px) {
+  .angle-answer-label { font-size: 10px; }
+  .answer-card { grid-template-columns: auto minmax(55px, 72px) auto; gap: 5px; padding: 8px; }
+  .angle-input-line input { height: 36px; font-size: 16px; }
+  .answer-card select { height: 37px; font-size: 10px; }
+}
+
 /* Storybook classroom concept: bright sky, carved wood, aqua activity cards. */
 .sheet-footer { color: #247448; }
 .sheet-footer span { color: #f19a24; }

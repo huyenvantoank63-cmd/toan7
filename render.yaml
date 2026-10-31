@@ -9,6 +9,9 @@ services:
         value: https://giai-ma-chung-minh-toan7-api.onrender.com
     routes:
       - type: rewrite
+        source: /giai-ma-goc
+        destination: /angle-mystery.html
+      - type: rewrite
         source: /results
         destination: /results.html
 
